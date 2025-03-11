@@ -44,3 +44,7 @@ type APIError struct {
 	Code    APIErrorCode `json:"code"`
 	Message string       `json:"message"`
 }
+
+type APIResponse struct {
+	Message string `json:"message"`
+}
