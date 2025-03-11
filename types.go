@@ -1,7 +1,6 @@
 package types
 
 import (
-	"github.com/snakehunterr/hacs_dbapi_types/errors"
 	"time"
 )
 
@@ -32,8 +31,16 @@ type Payment struct {
 	Amount   float64   `json:"payment_amount"`
 }
 
+type APIErrorCode byte
+
+const (
+	ErrMissingParam APIErrorCode = iota
+	ErrIncorrectParam
+	ErrSQLNoRows
+	ErrSQLInternalError
+)
+
 type APIError struct {
-	HTTPCode  int                 `json:"http_code"`
-	ErrorCode errors.APIErrorCode `json:"error_code"`
-	Message   string              `json:"message"`
+	Code    APIErrorCode `json:"code"`
+	Message string       `json:"message"`
 }
