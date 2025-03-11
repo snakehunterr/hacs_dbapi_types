@@ -1,6 +1,9 @@
 package types
 
-import "time"
+import (
+	"github.com/snakehunterr/hacs_dbapi_types/errors"
+	"time"
+)
 
 type Client struct {
 	ID      uint   `json:"client_id"`
@@ -27,4 +30,10 @@ type Payment struct {
 	RoomID   uint      `json:"room_id"`
 	Date     time.Time `json:"payment_date"`
 	Amount   float64   `json:"payment_amount"`
+}
+
+type APIError struct {
+	HTTPCode  int                 `json:"http_code"`
+	ErrorCode errors.APIErrorCode `json:"error_code"`
+	Message   string              `json:"message"`
 }
