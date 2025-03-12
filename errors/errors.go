@@ -23,8 +23,8 @@ func (e APIError) Error() string {
 var (
 	ErrMissingParam     = NewErrMissingParam("")
 	ErrIncorrectParam   = NewErrIncorrectParam("")
-	ErrSQLNoRows        = APIError{Code: ErrCodeSQLNoRows, Err: "no rows from sql query"}
-	ErrSQLInternalError = APIError{Code: ErrCodeSQLInternalError, Err: "sql server internal error"}
+	ErrSQLNoRows        = NewErrSQLNoRows("")
+	ErrSQLInternalError = NewErrSQLInternalError("")
 )
 
 func NewErrMissingParam(param string) APIError {
@@ -38,6 +38,20 @@ func NewErrIncorrectParam(param string) APIError {
 	return APIError{
 		Code: ErrCodeIncorrectParam,
 		Err:  fmt.Sprintf("incorrect param: %s", param),
+	}
+}
+
+func NewErrSQLNoRows(err string) APIError {
+	return APIError{
+		Code: ErrCodeSQLNoRows,
+		Err:  err,
+	}
+}
+
+func NewErrSQLInternalError(err string) APIError {
+	return APIError{
+		Code: ErrCodeSQLInternalError,
+		Err:  err,
 	}
 }
 

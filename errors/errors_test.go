@@ -18,12 +18,12 @@ func Test_apierror_is_child_err(t *testing.T) {
 		t.Fail()
 	}
 
-	err = ErrSQLNoRows
+	err = NewErrSQLNoRows("no rows")
 	if !IsChildErr(err, ErrSQLNoRows) {
 		t.Fail()
 	}
 
-	err = ErrSQLInternalError
+	err = NewErrSQLInternalError("internal")
 	if !IsChildErr(err, ErrSQLInternalError) {
 		t.Fail()
 	}
