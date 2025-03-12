@@ -1,6 +1,8 @@
 package types
 
 import (
+	"errors"
+	"fmt"
 	"time"
 )
 
@@ -38,17 +40,31 @@ type Payment struct {
 type APIErrorCode byte
 
 const (
-	ErrMissingParam APIErrorCode = iota
-	ErrIncorrectParam
-	ErrSQLNoRows
-	ErrSQLInternalError
+	ErrCodeMissingParam APIErrorCode = iota + 1
+	ErrCodeIncorrectParam
+	ErrCodeSQLNoRows
+	ErrCodeSQLInternalError
 )
 
-type APIError struct {
-	Code    APIErrorCode `json:"code"`
-	Message string       `json:"message"`
+type APIError error
+
+var (
+	ErrMissingParam     APIError = errors.New("missing parameter")
+	ErrIncorrectParam   APIError = errors.New("incorrect parameter")
+	ErrSQLNoRows        APIError = errors.New("no rows from sql query")
+	ErrSQLInternalError APIError = errors.New("sql server internal error")
+)
+
+func NewErrMissingParam(param string) APIError {
+	return APIError(fmt.Errorf("%w: %s", ErrMissingParam, param))
+}
+
+func NewErrIncorrectParam(param string) APIError {
+	return APIError(fmt.Errorf("%w: %s", ErrIncorrectParam, param))
 }
 
 type APIResponse struct {
-	Message string `json:"message"`
+	ErrorCode APIErrorCode `json:"error_code,omitempty"`
+	Error     APIError     `json:"error,omitempty"`
+	Message   string       `json:"message,omitempty"`
 }
