@@ -46,7 +46,7 @@ const (
 	ErrCodeSQLInternalError
 )
 
-type APIError error
+type APIError = error
 
 var (
 	ErrMissingParam     APIError = errors.New("missing parameter")
@@ -56,11 +56,11 @@ var (
 )
 
 func NewErrMissingParam(param string) APIError {
-	return APIError(fmt.Errorf("%w: %s", ErrMissingParam, param))
+	return fmt.Errorf("%w: %s", ErrMissingParam, param)
 }
 
 func NewErrIncorrectParam(param string) APIError {
-	return APIError(fmt.Errorf("%w: %s", ErrIncorrectParam, param))
+	return fmt.Errorf("%w: %s", ErrIncorrectParam, param)
 }
 
 type APIResponse struct {
