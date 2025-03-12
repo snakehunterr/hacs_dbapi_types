@@ -1,8 +1,7 @@
 package types
 
 import (
-	"errors"
-	"fmt"
+	errors "github.com/snakehunterr/hacs_dbapi_types/errors"
 	"time"
 )
 
@@ -37,34 +36,7 @@ type Payment struct {
 	LastEdited time.Time `json:"last_edited"`
 }
 
-type APIErrorCode byte
-
-const (
-	ErrCodeMissingParam APIErrorCode = iota + 1
-	ErrCodeIncorrectParam
-	ErrCodeSQLNoRows
-	ErrCodeSQLInternalError
-)
-
-type APIError = error
-
-var (
-	ErrMissingParam     APIError = errors.New("missing parameter")
-	ErrIncorrectParam   APIError = errors.New("incorrect parameter")
-	ErrSQLNoRows        APIError = errors.New("no rows from sql query")
-	ErrSQLInternalError APIError = errors.New("sql server internal error")
-)
-
-func NewErrMissingParam(param string) APIError {
-	return fmt.Errorf("%w: %s", ErrMissingParam, param)
-}
-
-func NewErrIncorrectParam(param string) APIError {
-	return fmt.Errorf("%w: %s", ErrIncorrectParam, param)
-}
-
 type APIResponse struct {
-	ErrorCode APIErrorCode `json:"error_code,omitempty"`
-	Error     APIError     `json:"error,omitempty"`
-	Message   string       `json:"message,omitempty"`
+	Error   errors.APIError `json:"error,omitempty"`
+	Message string          `json:"message,omitempty"`
 }
