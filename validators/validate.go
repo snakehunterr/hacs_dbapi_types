@@ -22,6 +22,17 @@ func Int64(name, value string, emptyCheck bool) (i int64, err *api_errors.APIErr
 	return v, nil
 }
 
+func Uint8(name, value string, emptyCheck bool) (u uint8, err *api_errors.APIError) {
+	if emptyCheck && len(value) == 0 {
+		return u, api_errors.NewErrEmptyParam(name)
+	}
+	v, e := strconv.ParseUint(value, 10, 8)
+	if e != nil {
+		return u, api_errors.NewErrIncorrectParam(name)
+	}
+	return uint8(v), nil
+}
+
 func Uint64(name, value string, emptyCheck bool) (u uint64, err *api_errors.APIError) {
 	if emptyCheck && len(value) == 0 {
 		return u, api_errors.NewErrEmptyParam(name)
