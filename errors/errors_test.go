@@ -6,7 +6,7 @@ import (
 )
 
 func Test_apierror_is_child_err(t *testing.T) {
-	var err APIError
+	var err *APIError
 
 	err = NewErrMissingParam("id")
 	if !IsChildErr(err, ErrMissingParam) {
@@ -37,7 +37,7 @@ func Test_apierror_json(t *testing.T) {
 		t.Fail()
 	}
 
-	error = APIError{}
+	error = &APIError{}
 	if err := json.Unmarshal(bs, &error); err != nil {
 		t.Fail()
 	}

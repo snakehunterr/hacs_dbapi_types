@@ -37,6 +37,6 @@ type Payment struct {
 }
 
 type APIResponse struct {
-	Error   errors.APIError `json:"error,omitempty"`
-	Message string          `json:"message,omitempty"`
+	Error   *errors.APIError `json:"error,omitempty"`
+	Message string           `json:"message,omitempty"`
 }
