@@ -8,8 +8,8 @@ import (
 func Test_apierror_is_child_err(t *testing.T) {
 	var err *APIError
 
-	err = NewErrMissingParam("id")
-	if !IsChildErr(err, ErrMissingParam) {
+	err = NewErrEmptyParam("id")
+	if !IsChildErr(err, ErrEmptyParam) {
 		t.Fail()
 	}
 
@@ -30,7 +30,7 @@ func Test_apierror_is_child_err(t *testing.T) {
 }
 
 func Test_apierror_json(t *testing.T) {
-	error := NewErrMissingParam("id")
+	error := NewErrEmptyParam("id")
 
 	bs, err := json.Marshal(error)
 	if err != nil {
@@ -42,7 +42,7 @@ func Test_apierror_json(t *testing.T) {
 		t.Fail()
 	}
 
-	if !IsChildErr(error, ErrMissingParam) {
+	if !IsChildErr(error, ErrEmptyParam) {
 		t.Fail()
 	}
 }

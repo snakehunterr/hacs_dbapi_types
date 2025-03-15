@@ -24,13 +24,13 @@ func (e *APIError) Error() string {
 }
 
 var (
-	ErrMissingParam     = NewErrMissingParam("")
+	ErrEmptyParam       = NewErrEmptyParam("")
 	ErrIncorrectParam   = NewErrIncorrectParam("")
 	ErrSQLNoRows        = NewErrSQLNoRows("")
 	ErrSQLInternalError = NewErrSQLInternalError("")
 )
 
-func NewErrMissingParam(param string) *APIError {
+func NewErrEmptyParam(param string) *APIError {
 	return &APIError{
 		Code: ErrCodeMissingParam,
 		Err:  fmt.Sprintf("missing param: %s", param),
