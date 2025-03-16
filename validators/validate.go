@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	DATE_FORMAT = "2006-01-02"
+	DATE_FORMAT = "2006-01-02 15:04:05"
 )
 
 func Int64(name, value string, emptyCheck bool) (i int64, err *api_errors.APIError) {
