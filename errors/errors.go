@@ -18,7 +18,7 @@ type APIError struct {
 
 func (e *APIError) Error() string {
 	if e == nil {
-		return "*APIError is nil (no error)"
+		return "nil"
 	}
 	return e.Err
 }
@@ -58,10 +58,20 @@ func NewErrSQLInternalError(err string) *APIError {
 	}
 }
 
-func IsChildErr(child, parent *APIError) bool {
-	if child == nil || parent == nil {
+func IsChildErr(err, target error) bool {
+	e, ok := err.(*APIError)
+	if !ok {
 		return false
 	}
 
-	return child.Code == parent.Code
+	t, ok := target.(*APIError)
+	if !ok {
+		return false
+	}
+
+	if e == nil || t == nil {
+		return false
+	}
+
+	return e.Code == t.Code
 }

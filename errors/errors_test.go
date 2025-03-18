@@ -27,6 +27,11 @@ func Test_apierror_is_child_err(t *testing.T) {
 	if !IsChildErr(err, ErrSQLInternalError) {
 		t.Fail()
 	}
+
+	err = nil
+	if IsChildErr(err, ErrSQLInternalError) {
+		t.Fail()
+	}
 }
 
 func Test_apierror_json(t *testing.T) {
