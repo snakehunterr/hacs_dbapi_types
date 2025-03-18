@@ -33,17 +33,6 @@ func Uint8(name, value string, emptyCheck bool) (u uint8, err *api_errors.APIErr
 	return uint8(v), nil
 }
 
-func Uint64(name, value string, emptyCheck bool) (u uint64, err *api_errors.APIError) {
-	if emptyCheck && len(value) == 0 {
-		return u, api_errors.NewErrEmptyParam(name)
-	}
-	v, e := strconv.ParseUint(value, 10, 64)
-	if e != nil {
-		return u, api_errors.NewErrIncorrectParam(name)
-	}
-	return v, nil
-}
-
 func Float64(name, value string, emptyCheck bool) (f float64, err *api_errors.APIError) {
 	if emptyCheck && len(value) == 0 {
 		return f, api_errors.NewErrEmptyParam(name)
